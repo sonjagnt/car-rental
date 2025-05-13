@@ -8,6 +8,7 @@ import {
 import { useEffect } from 'react';
 import { getCars } from '../../store/cars/operations';
 import { setPage } from '../../store/cars/slice';
+import { Link } from 'react-router';
 
 export default function CatalogList() {
   const cars = useSelector(selectCars);
@@ -33,21 +34,23 @@ export default function CatalogList() {
           <ul>
             {cars.map(car => (
               <li key={car.id}>
-                <div>
-                  <img src={car.img} />
+                <Link to={`${car.id}`}>
                   <div>
-                    {car.brand}
-                    {car.model}
-                    {car.year}
-                    {car.rentalPrice}
+                    <img src={car.img} />
+                    <div>
+                      {car.brand}
+                      {car.model}
+                      {car.year}
+                      {car.rentalPrice}
+                    </div>
+                    <div>
+                      {car.address}
+                      {car.rentalCompany}
+                      {car.type}
+                      {car.mileage}
+                    </div>
                   </div>
-                  <div>
-                    {car.address}
-                    {car.rentalCompany}
-                    {car.type}
-                    {car.mileage}
-                  </div>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

@@ -11,11 +11,18 @@ export const getAllCars = async page => {
         limit: 10,
       },
     });
-    console.log(response.data);
-
     return response.data;
   } catch (e) {
-    console.log(e.message);
-    throw e;
+    throw e.message;
+  }
+};
+
+export const getCarById = async id => {
+  try {
+    const response = await axios.get(`/cars/${id}`);
+    console.log(response);
+    return response;
+  } catch (e) {
+    throw e.message;
   }
 };

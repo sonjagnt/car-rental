@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCars } from './operations';
+import { getCarDetails, getCars } from './operations';
 
 const initialState = {
   items: [],
@@ -35,7 +35,16 @@ const carsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(getCars.rejected, handleRejected);
+      .addCase(getCars.rejected, handleRejected)
+      .addCase(getCarDetails.pending, handlePending)
+      .addCase(getCarDetails.fulfilled, (state, action) => {
+        state.items.find(i => {
+          i.id === action.payload.id;
+        });
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(getCarDetails.rejected, handleRejected);
   },
 });
 
