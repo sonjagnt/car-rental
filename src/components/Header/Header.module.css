@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  height: 68px;
+  background-color: var(--badges);
+  padding: 24px 120px;
+}
+
+.navigation {
+  color: var(--main);
+  display: flex;
+  gap: 32px;
+}
+
+.navLink {
+  color: var(--main);
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.navLink:active,
+.navLink:hover {
+  color: var(--button-hover);
+}

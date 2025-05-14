@@ -1,15 +1,24 @@
 import { NavLink, Link } from 'react-router';
+import Container from '../../ui/Container/Container';
+import s from './Header.module.css';
+import Logo from '../../ui/Logo/Logo';
 
 export default function Header() {
   return (
-    <header>
-      <Link to="/">
-        Rental<span>Car</span>
-      </Link>
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/catalog">Catalog</NavLink>
-      </nav>
-    </header>
+    <Container>
+      <header className={s.header}>
+        <Link to="/">
+          <Logo />
+        </Link>
+        <nav className={s.navigation}>
+          <NavLink to="/" className={s.navLink}>
+            Home
+          </NavLink>
+          <NavLink to="/catalog" className={s.navLink}>
+            Catalog
+          </NavLink>
+        </nav>
+      </header>
+    </Container>
   );
 }

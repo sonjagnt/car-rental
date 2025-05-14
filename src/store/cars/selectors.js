@@ -12,7 +12,7 @@ export const selectFilteredCars = createSelector(
     const [minMileage, maxMileage] = mileageRange;
     return cars.filter(car => {
       return (
-        (!brand || car.brand === brand) &&
+        (!brand || car.brand.toLowerCase() === brand.toLowerCase()) &&
         (!rentalPrice || car.rentalPrice === rentalPrice) &&
         car.mileage >= minMileage &&
         car.mileage <= maxMileage

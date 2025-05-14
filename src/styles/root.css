@@ -1,0 +1,14 @@
+:root {
+  --font-family: 'Manrope', sans-serif;
+  --second-family: 'Inter', sans-serif;
+
+  /*Colors*/
+  --white: #fff;
+  --inputs: #f7f7f7;
+  --badges: #f2f4f7;
+  --gray-light: #dadde1;
+  --button-hover: #0b44cd;
+  --button: #3470ff;
+  --gray: #8e929a;
+  --main: #101828;
+}

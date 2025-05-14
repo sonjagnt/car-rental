@@ -1,0 +1,12 @@
+.section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-image: url('/src/assets/desktop@1x.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media screen and (min-device-pixel-ratio: 2) {
+    background-image: url('/src/assets/desktop@2x.png');
+  }
+}

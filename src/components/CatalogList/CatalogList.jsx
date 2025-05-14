@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectCars,
+  selectFilteredCars,
   selectIsLoading,
   selectPage,
   selectTotalPages,
@@ -9,9 +9,10 @@ import { useEffect } from 'react';
 import { getCars } from '../../store/cars/operations';
 import { setPage } from '../../store/cars/slice';
 import { Link } from 'react-router';
+import FilterBar from '../FilterBar/FilterBar';
 
 export default function CatalogList() {
-  const cars = useSelector(selectCars);
+  const filteredCars = useSelector(selectFilteredCars);
   const currentPage = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
   const isLoading = useSelector(selectIsLoading);
@@ -27,38 +28,39 @@ export default function CatalogList() {
 
   return (
     <div>
+      {/* <FilterBar /> */}
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <>
           <ul>
-            {cars.map(car => (
+            {filteredCars.map(car => (
               <li key={car.id}>
-                <Link to={`${car.id}`}>
+                <div>
+                  <img src={car.img} />
                   <div>
-                    <img src={car.img} />
-                    <div>
-                      {car.brand}
-                      {car.model}
-                      {car.year}
-                      {car.rentalPrice}
-                    </div>
-                    <div>
-                      {car.address}
-                      {car.rentalCompany}
-                      {car.type}
-                      {car.mileage}
-                    </div>
+                    {car.brand}
+                    {car.model}
+                    {car.year}
+                    {car.rentalPrice}
                   </div>
-                </Link>
+                  <div>
+                    {car.address}
+                    {car.rentalCompany}
+                    {car.type}
+                    {car.mileage}
+                  </div>
+                  <Link to={`${car.id}`}>Read more</Link>
+                </div>
               </li>
             ))}
           </ul>
-          {currentPage < totalPages && totalPages > 1 && (
+          {filteredCars.length > 0 && currentPage < totalPages && totalPages > 1 && (
             <button onClick={handleNext}>Load More</button>
           )}
         </>
       )}
+      {filteredCars.length === 0 && <div>No cars found. Please, try something else.</div>}
     </div>
   );
 }

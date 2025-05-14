@@ -11,6 +11,8 @@ export const getAllCars = async page => {
         limit: 10,
       },
     });
+    console.log(response);
+
     return response.data;
   } catch (e) {
     throw e.message;
