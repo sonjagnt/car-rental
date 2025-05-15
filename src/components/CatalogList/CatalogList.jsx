@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectFilteredCars,
+  selectCars,
   selectIsLoading,
   selectPage,
   selectTotalPages,
@@ -10,9 +10,10 @@ import { getCars } from '../../store/cars/operations';
 import { setPage } from '../../store/cars/slice';
 import { Link } from 'react-router';
 import FilterBar from '../FilterBar/FilterBar';
+import s from './CatalogList.module.css';
 
 export default function CatalogList() {
-  const filteredCars = useSelector(selectFilteredCars);
+  const allCars = useSelector(selectCars);
   const currentPage = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
   const isLoading = useSelector(selectIsLoading);
@@ -28,39 +29,45 @@ export default function CatalogList() {
 
   return (
     <div>
-      {/* <FilterBar /> */}
+      <FilterBar />
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <ul>
-            {filteredCars.map(car => (
-              <li key={car.id}>
-                <div>
+          <ul className={s.list}>
+            {allCars.map(car => (
+              <li key={car.id} className={s.listItem}>
+                <div className={s.imgWrapper}>
                   <img src={car.img} />
-                  <div>
-                    {car.brand}
-                    {car.model}
-                    {car.year}
-                    {car.rentalPrice}
-                  </div>
-                  <div>
-                    {car.address}
-                    {car.rentalCompany}
-                    {car.type}
-                    {car.mileage}
-                  </div>
-                  <Link to={`${car.id}`}>Read more</Link>
                 </div>
+                <div className={s.mainInfo}>
+                  <p>
+                    {car.brand} <span className={s.accent}>{car.model}</span>, {car.year}
+                  </p>
+                  <p>$ {car.rentalPrice}</p>
+                </div>
+                <div>
+                  <p className={s.additionalInfo}>
+                    {Array.from(car.address.split(' ')[3])} | {car.rentalCompany} |<br />
+                    {car.type} | {car.mileage} km
+                  </p>
+                </div>
+                <Link to={`${car.id}`} className={s.btn}>
+                  Read more
+                </Link>
               </li>
             ))}
           </ul>
-          {filteredCars.length > 0 && currentPage < totalPages && totalPages > 1 && (
-            <button onClick={handleNext}>Load More</button>
+          {allCars.length > 0 && currentPage < totalPages && totalPages > 1 && (
+            <div className={s.btnWrapper}>
+              <button onClick={handleNext} className={s.moreBtn}>
+                Load More
+              </button>
+            </div>
           )}
         </>
       )}
-      {filteredCars.length === 0 && <div>No cars found. Please, try something else.</div>}
+      {allCars.length === 0 && <div>No cars found. Please, try something else.</div>}
     </div>
   );
 }

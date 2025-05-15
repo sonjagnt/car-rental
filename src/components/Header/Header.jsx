@@ -5,8 +5,8 @@ import Logo from '../../ui/Logo/Logo';
 
 export default function Header() {
   return (
-    <Container>
-      <header className={s.header}>
+    <header className={s.header}>
+      <Container className={s.container}>
         <Link to="/">
           <Logo />
         </Link>
@@ -18,7 +18,7 @@ export default function Header() {
             Catalog
           </NavLink>
         </nav>
-      </header>
-    </Container>
+      </Container>
+    </header>
   );
 }
