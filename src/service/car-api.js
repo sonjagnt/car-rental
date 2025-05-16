@@ -11,7 +11,6 @@ export const getAllCars = async ({
 }) => {
   const params = {
     page: page,
-    per_page: 10,
     limit: 12,
   };
 
@@ -22,8 +21,6 @@ export const getAllCars = async ({
 
   try {
     const response = await axios.get('/cars', { params });
-    console.log(response);
-
     return response.data;
   } catch (e) {
     throw e.message;
@@ -33,8 +30,7 @@ export const getAllCars = async ({
 export const getCarById = async id => {
   try {
     const response = await axios.get(`/cars/${id}`);
-    console.log(response);
-    return response;
+    return response.data;
   } catch (e) {
     throw e.message;
   }
@@ -43,8 +39,7 @@ export const getCarById = async id => {
 export const getCarBrands = async () => {
   try {
     const response = await axios.get('/brands');
-    console.log(response);
-    return response;
+    return response.data;
   } catch (e) {
     throw e.message;
   }

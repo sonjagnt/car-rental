@@ -1,0 +1,21 @@
+.container {
+  padding-top: 84px;
+  display: flex;
+  gap: 72px;
+}
+
+.imgWrapper {
+  max-width: 640px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.imgWrapper img {
+  object-fit: contain;
+  width: 100%;
+}
+
+.mainInfo {
+  justify-content: center;
+  display: flex;
+}

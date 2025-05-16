@@ -4,8 +4,9 @@ export const filtersSlice = createSlice({
   name: 'filters',
   initialState: {
     brand: '',
-    rentalPrice: null,
-    mileageRange: { from: null, to: null },
+    rentalPrice: '',
+    minMileage: null,
+    maxMileage: null,
   },
   reducers: {
     changeBrandFilter(state, action) {
@@ -14,17 +15,19 @@ export const filtersSlice = createSlice({
     changePriceFilter(state, action) {
       state.rentalPrice = action.payload;
     },
-    changeMileageFilter(state, action) {
-      const { from, to } = action.payload;
-
-      state.mileageRange = {
-        from: from ?? null,
-        to: to ?? null,
-      };
+    changeMinMileageFilter(state, action) {
+      state.minMileage = action.payload;
+    },
+    changeMaxMileageFilter(state, action) {
+      state.maxMileage = action.payload;
     },
   },
 });
 
-export const { changeBrandFilter, changePriceFilter, changeMileageFilter } =
-  filtersSlice.actions;
+export const {
+  changeBrandFilter,
+  changePriceFilter,
+  changeMinMileageFilter,
+  changeMaxMileageFilter,
+} = filtersSlice.actions;
 export default filtersSlice.reducer;

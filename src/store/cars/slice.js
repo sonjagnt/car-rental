@@ -6,6 +6,7 @@ const initialState = {
   brands: [],
   page: 1,
   totalPages: 0,
+  carDetails: null,
   isLoading: false,
   error: null,
 };
@@ -39,9 +40,7 @@ const carsSlice = createSlice({
       .addCase(getCars.rejected, handleRejected)
       .addCase(getCarDetails.pending, handlePending)
       .addCase(getCarDetails.fulfilled, (state, action) => {
-        state.items.find(i => {
-          i.id === action.payload.id;
-        });
+        state.carDetails = action.payload;
         state.isLoading = false;
         state.error = null;
       })
@@ -49,6 +48,8 @@ const carsSlice = createSlice({
       .addCase(getBrands.pending, handlePending)
       .addCase(getBrands.fulfilled, (state, action) => {
         state.brands = action.payload;
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(getBrands.rejected, handleRejected);
   },

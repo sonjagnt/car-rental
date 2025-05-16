@@ -41,6 +41,10 @@
   margin-bottom: 8px;
 }
 
+.carName {
+  max-width: 240px;
+}
+
 .accent {
   color: var(--button);
 }

@@ -1,127 +1,115 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import {
+  changeBrandFilter,
+  changeMaxMileageFilter,
+  changeMinMileageFilter,
+  changePriceFilter,
+} from '../../store/filters/slice';
+import { selectBrands } from '../../store/cars/selectors';
+import {
   selectBrand,
-  selectMileageRange,
+  selectMaxMileage,
+  selectMinMileage,
   selectRentalPrice,
 } from '../../store/filters/selectors';
-import { selectBrands, selectPage } from '../../store/cars/selectors';
-import { Range } from 'react-range';
-import { useEffect, useState } from 'react';
-import { getBrands, getCars } from '../../store/cars/operations';
-import axios from 'axios';
+import { getCars } from '../../store/cars/operations';
+import { useEffect, useMemo, useState } from 'react';
+import { getBrands } from '../../store/cars/operations';
+import s from './FilterBar.module.css';
+import { customStyles } from '../../constants/customStyles';
+import Container from '../../ui/Container/Container';
 
 export default function FilterBar() {
-  const brands = useSelector(selectBrands);
-
   const dispatch = useDispatch();
 
-  const [mileage, setMileage] = useState([0, 10000]);
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedPrice, setSelectedPrice] = useState('');
+  const brand = useSelector(selectBrand);
+  const rentalPrice = useSelector(selectRentalPrice);
+  const minMileage = useSelector(selectMinMileage);
+  const maxMileage = useSelector(selectMaxMileage);
+  const brands = useSelector(selectBrands);
 
-  const brandOptions = brands.map(brand => ({
-    value: brand,
-    label: brand,
-  }));
+  const [mileage, setMileage] = useState([minMileage || 0, maxMileage || 10000]);
+
+  useEffect(() => {
+    dispatch(getBrands());
+  }, [dispatch]);
+
+  const brandOptions = useMemo(
+    () => brands.map(brand => ({ value: brand, label: brand })),
+    [brands]
+  );
 
   const priceOptions = [
     { value: '30', label: '$30' },
+    { value: '40', label: '$40' },
     { value: '50', label: '$50' },
+    { value: '60', label: '$60' },
+    { value: '70', label: '$80' },
     { value: '80', label: '$80' },
   ];
 
-  const handleMileageChange = values => {
-    setMileage(values);
-  };
-
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const params = {
-      page: currentPage,
-      brand: selectedBrand || undefined,
-      rentalPrice: selectedPrice || undefined,
-      minMileage: mileage[0],
-      maxMileage: mileage[1],
-    };
+    dispatch(changeBrandFilter(brand));
+    dispatch(changePriceFilter(rentalPrice));
+    dispatch(changeMinMileageFilter(mileage[0]));
+    dispatch(changeMaxMileageFilter(mileage[1]));
 
-    try {
-      const response = await axios.get('/cars', { params });
-      console.log(response);
-
-      dispatch(getCars(params));
-    } catch (err) {
-      console.error(err);
-    }
+    dispatch(
+      getCars({
+        page: 1,
+        brand: brand || undefined,
+        rentalPrice: rentalPrice || undefined,
+        minMileage: mileage[0],
+        maxMileage: mileage[1],
+      })
+    );
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Select
-        options={brandOptions}
-        value={brandOptions.find(option => option.value === selectedBrand)}
-        onChange={option => setSelectedBrand(option?.value || '')}
-        placeholder="Choose a brand"
-      />
-
-      <Select
-        options={priceOptions}
-        value={priceOptions.find(option => option.value === selectedPrice)}
-        onChange={option => setSelectedPrice(option?.value || '')}
-        placeholder="Choose price"
-      />
-
-      <div>
-        <Range
-          step={1000}
-          min={0}
-          max={10000}
-          values={mileage}
-          onChange={handleMileageChange}
-          renderTrack={({ props, children }) => (
-            <div
-              {...props}
-              style={{
-                ...props.style,
-                height: '6px',
-                width: '100%',
-                backgroundColor: '#ccc',
-              }}
-            >
-              {children}
-            </div>
-          )}
-          renderThumb={({ props }) => (
-            <div
-              {...props}
-              key={props.key}
-              style={{
-                ...props.style,
-                height: '42px',
-                width: '42px',
-                backgroundColor: '#999',
-              }}
-            />
-          )}
-        />
+    <Container className={s.wrapper}>
+      <form onSubmit={handleSubmit} className={s.form}>
+        <label className={s.label}>
+          Car brand
+          <Select
+            styles={customStyles}
+            options={brandOptions}
+            value={brandOptions.find(option => option.value === brand)}
+            onChange={option => dispatch(changeBrandFilter(option?.value || ''))}
+            placeholder="Choose a brand"
+          />
+        </label>
+        <label className={s.label}>
+          Price/ 1 hour
+          <Select
+            styles={customStyles}
+            options={priceOptions}
+            value={priceOptions.find(option => option.value === rentalPrice)}
+            onChange={option => dispatch(changePriceFilter(option?.value || ''))}
+            placeholder="Choose a price"
+          />
+        </label>
         <div>
+          <label className={s.label}>Car mileage | km</label>
           <input
             type="number"
             value={mileage[0]}
-            onChange={e => handleMileageChange([e.target.value || 0, mileage[1]])}
-            placeholder="From"
+            onChange={e => setMileage([+e.target.value, mileage[1]])}
+            placeholder="Min"
           />
           <input
             type="number"
             value={mileage[1]}
-            onChange={e => handleMileageChange([mileage[0], e.target.value || 0])}
-            placeholder="To"
+            onChange={e => setMileage([mileage[0], +e.target.value])}
+            placeholder="Max"
           />
         </div>
-      </div>
-
-      <button type="submit">Search</button>
-    </form>
+        <button type="submit" className={s.btn}>
+          Search
+        </button>
+      </form>
+    </Container>
   );
 }
