@@ -1,13 +1,16 @@
 .container {
+  font-family: var(--font-family);
   padding-top: 84px;
+  padding-bottom: 104px;
   display: flex;
   gap: 72px;
 }
 
 .imgWrapper {
-  max-width: 640px;
+  width: 640px;
   border-radius: 20px;
   overflow: hidden;
+  margin-bottom: 40px;
 }
 
 .imgWrapper img {
@@ -18,4 +21,139 @@
 .mainInfo {
   justify-content: center;
   display: flex;
+}
+
+.carName {
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+}
+
+.smallText {
+  display: flex;
+  gap: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--main);
+  margin-bottom: 16px;
+}
+
+.location {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  color: var(--button);
+  margin-bottom: 32px;
+}
+
+.descr {
+  font-weight: 500;
+  margin-bottom: 68px;
+}
+
+.lists {
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+}
+
+.listTitle {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--main);
+}
+
+.list {
+  display: flex;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.listItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.formWrapper {
+  border: 1px solid var(--gray-light);
+  border-radius: 10px;
+  padding: 32px;
+  width: 640px;
+  height: auto;
+}
+
+.formTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.subText {
+  color: var(--gray);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form input,
+.form textarea {
+  margin-bottom: 16px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 14px 20px;
+  background-color: var(--inputs);
+}
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--gray);
+}
+.datePickerWrapper {
+  min-width: 576px;
+}
+
+.form textarea {
+  resize: none;
+  min-height: 88px;
+  margin-bottom: 24px;
+}
+
+.btn {
+  border-radius: 12px;
+  padding: 12px 51px;
+  width: 156px;
+  height: 44px;
+  color: var(--white);
+  background-color: var(--button);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.error {
+  font-size: 14px;
+  align-self: flex-start;
+  color: #ff3838;
 }

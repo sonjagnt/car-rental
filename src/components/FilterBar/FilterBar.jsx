@@ -5,6 +5,7 @@ import {
   changeMaxMileageFilter,
   changeMinMileageFilter,
   changePriceFilter,
+  resetFilters,
 } from '../../store/filters/slice';
 import { selectBrands } from '../../store/cars/selectors';
 import {
@@ -29,23 +30,27 @@ export default function FilterBar() {
   const maxMileage = useSelector(selectMaxMileage);
   const brands = useSelector(selectBrands);
 
-  const [mileage, setMileage] = useState([minMileage || 0, maxMileage || 10000]);
+  const [mileage, setMileage] = useState([minMileage ?? '', maxMileage ?? '']);
 
   useEffect(() => {
     dispatch(getBrands());
   }, [dispatch]);
 
   const brandOptions = useMemo(
-    () => brands.map(brand => ({ value: brand, label: brand })),
+    () => [
+      { value: '', label: 'Choose a brand' },
+      ...brands.map(brand => ({ value: brand, label: brand })),
+    ],
     [brands]
   );
 
   const priceOptions = [
+    { value: '', label: 'Choose a price' },
     { value: '30', label: '$30' },
     { value: '40', label: '$40' },
     { value: '50', label: '$50' },
     { value: '60', label: '$60' },
-    { value: '70', label: '$80' },
+    { value: '70', label: '$70' },
     { value: '80', label: '$80' },
   ];
 
@@ -66,13 +71,15 @@ export default function FilterBar() {
         maxMileage: mileage[1],
       })
     );
+
+    dispatch(resetFilters());
   };
 
   return (
     <Container className={s.wrapper}>
       <form onSubmit={handleSubmit} className={s.form}>
         <label className={s.label}>
-          Car brand
+          <span className={s.labelText}>Car brand</span>
           <Select
             styles={customStyles}
             options={brandOptions}
@@ -82,7 +89,7 @@ export default function FilterBar() {
           />
         </label>
         <label className={s.label}>
-          Price/ 1 hour
+          <span className={s.labelText}>Price/ 1 hour</span>
           <Select
             styles={customStyles}
             options={priceOptions}
@@ -92,19 +99,25 @@ export default function FilterBar() {
           />
         </label>
         <div>
-          <label className={s.label}>Car mileage | km</label>
-          <input
-            type="number"
-            value={mileage[0]}
-            onChange={e => setMileage([+e.target.value, mileage[1]])}
-            placeholder="Min"
-          />
-          <input
-            type="number"
-            value={mileage[1]}
-            onChange={e => setMileage([mileage[0], +e.target.value])}
-            placeholder="Max"
-          />
+          <label className={s.label}>
+            <span className={s.labelText}>Car mileage | km</span>
+            <div className={s.mileageInputs}>
+              <input
+                className={s.mileageInput}
+                type="number"
+                value={mileage[0]}
+                onChange={e => setMileage([+e.target.value, mileage[1]])}
+                placeholder="From"
+              />
+              <input
+                className={s.mileageInput}
+                type="number"
+                value={mileage[1]}
+                onChange={e => setMileage([mileage[0], +e.target.value])}
+                placeholder="To"
+              />
+            </div>
+          </label>
         </div>
         <button type="submit" className={s.btn}>
           Search

@@ -6,6 +6,7 @@ const initialState = {
   brands: [],
   page: 1,
   totalPages: 0,
+  favorites: [],
   carDetails: null,
   isLoading: false,
   error: null,
@@ -26,6 +27,12 @@ const carsSlice = createSlice({
   reducers: {
     setPage: (state, action) => {
       state.page = action.payload;
+    },
+    addFavorite: (state, action) => {
+      state.favorites.push(action.payload);
+    },
+    deleteFavorite: (state, action) => {
+      state.favorites = state.favorites.filter(fav => fav.id !== action.payload.id);
     },
   },
   extraReducers: builder => {
@@ -55,5 +62,5 @@ const carsSlice = createSlice({
   },
 });
 
-export const { setPage } = carsSlice.actions;
+export const { setPage, addFavorite, deleteFavorite } = carsSlice.actions;
 export default carsSlice.reducer;

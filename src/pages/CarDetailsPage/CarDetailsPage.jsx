@@ -4,16 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCarDetails } from '../../store/cars/operations';
 import { selectCarDetails, selectIsLoading } from '../../store/cars/selectors';
 import s from './CarDetailsPage.module.css';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import Container from '../../ui/Container/Container';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { SlLocationPin } from 'react-icons/sl';
+import { IoCalendarOutline } from 'react-icons/io5';
+import { BsCarFront, BsFuelPump } from 'react-icons/bs';
+import { PiGear } from 'react-icons/pi';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function CarDetailsPage() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm();
 
@@ -26,6 +32,12 @@ export default function CarDetailsPage() {
     dispatch(getCarDetails(id));
   }, [dispatch, id]);
 
+  const onSubmit = async data => {
+    if (data) {
+      toast.success('Thank you for your request!');
+    }
+    console.log(data);
+  };
   return (
     <Container className={s.container}>
       {isLoading && <p>Loading...</p>}
@@ -36,59 +48,109 @@ export default function CarDetailsPage() {
             <div className={s.imgWrapper}>
               <img src={car.img} />
             </div>
-            <form>
-              <input {...register('name', { required: true, maxLength: 20 })} />
-              <input {...register('email', { required: true, maxLength: 20 })} />
-              <input />
-              <textarea {...register('comment', { maxLength: 300 })} />
-              <button></button>
-            </form>
+            <div className={s.formWrapper}>
+              <h3 className={s.formTitle}>Book your car now</h3>
+              <p className={s.subText}>
+                Stay connected! We are always ready to help you.
+              </p>
+              <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+                <input
+                  {...register('name', { required: true, maxLength: 20 })}
+                  placeholder="Name*"
+                />
+                {errors.name && <span className={s.error}>Name is required</span>}
+                <input
+                  {...register('email', { required: true, maxLength: 20 })}
+                  placeholder="Email*"
+                />
+                {errors.email && <span className={s.error}>Email is required</span>}
+                <Controller
+                  name="date"
+                  control={control}
+                  render={({ field }) => (
+                    <div>
+                      <DatePicker
+                        wrapperClassName={s.datePickerWrapper}
+                        className={s.datePicker}
+                        placeholderText="Booking date"
+                        calendarClassName="calendar"
+                        selected={field.value}
+                        onChange={field.onChange}
+                        dateFormat="dd-MM-yyyy"
+                      />
+                    </div>
+                  )}
+                />
+                <textarea
+                  {...register('comment', { maxLength: 300 })}
+                  placeholder="Comment"
+                />
+                <button type="submit" className={s.btn}>
+                  Send
+                </button>
+              </form>
+            </div>
           </div>
 
           <div className={s.info}>
             <div>
-              <h2>
+              <h2 className={s.carName}>
                 {car.brand} {car.model}, {car.year}
               </h2>
-              <p>
-                <span>
-                  <SlLocationPin />
+              <p className={s.smallText}>
+                <span className={s.location}>
+                  <SlLocationPin size={16} />
                   {Array.from(car.address.split(' ')[3])}{' '}
                   {Array.from(car.address.split(' ')[4])}
                 </span>
                 <span>Mileage: {car.mileage} km</span>
               </p>
-              <p>{car.rentalPrice} $</p>
-              <p>{car.description}</p>
+              <p className={s.price}>{car.rentalPrice} $</p>
+              <p className={s.descr}>{car.description}</p>
             </div>
-            <ul>
-              <h3>Rental Conditions:</h3>
-              {car.rentalConditions.map(cond => (
-                <li key={cond}>
-                  <IoIosCheckmarkCircleOutline />
-                  {cond}
+            <div className={s.lists}>
+              <ul className={s.list}>
+                <h3 className={s.listTitle}>Rental Conditions:</h3>
+                {car.rentalConditions.map(cond => (
+                  <li key={cond} className={s.listItem}>
+                    <IoIosCheckmarkCircleOutline size={16} />
+                    {cond}
+                  </li>
+                ))}
+              </ul>
+              <ul className={s.list}>
+                <h3 className={s.listTitle}>Car Specifications:</h3>
+                <li className={s.listItem}>
+                  <IoCalendarOutline size={16} />
+                  Year: {car.year}
                 </li>
-              ))}
-            </ul>
-            <ul>
-              <h3>Car Specifications:</h3>
-              <li>Year: {car.year}</li>
-              <li>Type: {car.type}</li>
-              <li>Fuel Consumption: {car.fuelConsumption}</li>
-              <li>Car Engine Size: {car.engineSize}</li>
-            </ul>
-            <ul>
-              <h3>Accessories and functionalities:</h3>
-              {car.accessories.map(acc => (
-                <li key={acc}>
-                  <IoIosCheckmarkCircleOutline />
-                  {acc}
+                <li className={s.listItem}>
+                  <BsCarFront size={16} />
+                  Type: {car.type}
                 </li>
-              ))}
-            </ul>
+                <li className={s.listItem}>
+                  <BsFuelPump size={16} />
+                  Fuel Consumption: {car.fuelConsumption}
+                </li>
+                <li className={s.listItem}>
+                  <PiGear size={16} />
+                  Car Engine Size: {car.engineSize}
+                </li>
+              </ul>
+              <ul className={s.list}>
+                <h3 className={s.listTitle}>Accessories and functionalities:</h3>
+                {car.accessories.map(acc => (
+                  <li key={acc} className={s.listItem}>
+                    <IoIosCheckmarkCircleOutline />
+                    {acc}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </>
       )}
+      <Toaster />
     </Container>
   );
 }

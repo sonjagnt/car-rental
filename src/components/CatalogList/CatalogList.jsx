@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCars,
+  selectFavorites,
   selectIsLoading,
   selectPage,
   selectTotalPages,
 } from '../../store/cars/selectors';
 import { useEffect } from 'react';
 import { getCars } from '../../store/cars/operations';
-import { setPage } from '../../store/cars/slice';
+import { addFavorite, deleteFavorite, setPage } from '../../store/cars/slice';
 import { Link } from 'react-router-dom';
 import FilterBar from '../FilterBar/FilterBar';
 import s from './CatalogList.module.css';
@@ -18,6 +19,8 @@ import {
   selectRentalPrice,
 } from '../../store/filters/selectors';
 
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
+
 export default function CatalogList() {
   const allCars = useSelector(selectCars);
   const currentPage = useSelector(selectPage);
@@ -27,12 +30,21 @@ export default function CatalogList() {
   const maxMileage = useSelector(selectMaxMileage);
   const totalPages = useSelector(selectTotalPages);
   const isLoading = useSelector(selectIsLoading);
+  const favorites = useSelector(selectFavorites);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCars({ page: 1 }));
   }, [dispatch]);
+
+  const toggleFavorite = car => {
+    if (favorites.find(fav => fav.id === car.id)) {
+      dispatch(deleteFavorite(car));
+    } else {
+      dispatch(addFavorite(car));
+    }
+  };
 
   const handleNext = () => {
     const nextPage = currentPage + 1;
@@ -49,8 +61,25 @@ export default function CatalogList() {
     );
   };
 
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      const prevPage = currentPage - 1;
+
+      dispatch(setPage(prevPage));
+      dispatch(
+        getCars({
+          page: prevPage,
+          brand: brand || undefined,
+          rentalPrice: rentalPrice || undefined,
+          minMileage: minMileage ?? undefined,
+          maxMileage: maxMileage ?? undefined,
+        })
+      );
+    }
+  };
+
   return (
-    <div>
+    <section>
       <FilterBar />
       {isLoading ? (
         <p>Loading...</p>
@@ -59,6 +88,13 @@ export default function CatalogList() {
           <ul className={s.list}>
             {allCars.map(car => (
               <li key={car.id} className={s.listItem}>
+                <button onClick={() => toggleFavorite(car)}>
+                  {favorites.find(fav => fav.id === car.id) ? (
+                    <IoIosHeart className={s.favIcon} size={16} fill="#3470FF" />
+                  ) : (
+                    <IoIosHeartEmpty className={s.favIcon} size={16} fill="#fff" />
+                  )}
+                </button>
                 <div className={s.imgWrapper}>
                   <img src={car.img} />
                 </div>
@@ -80,16 +116,23 @@ export default function CatalogList() {
               </li>
             ))}
           </ul>
-          {allCars.length > 0 && currentPage < totalPages && totalPages > 1 && (
+          {allCars.length > 0 && totalPages > 1 && (
             <div className={s.btnWrapper}>
-              <button onClick={handleNext} className={s.moreBtn}>
-                Load More
-              </button>
+              {currentPage > 1 && (
+                <button onClick={handlePrev} className={s.navBtn}>
+                  Previous page
+                </button>
+              )}
+              {currentPage < totalPages && (
+                <button onClick={handleNext} className={s.navBtn}>
+                  Load More
+                </button>
+              )}
             </div>
           )}
         </>
       )}
       {allCars.length === 0 && <div>No cars found. Please, try something else.</div>}
-    </div>
+    </section>
   );
 }
