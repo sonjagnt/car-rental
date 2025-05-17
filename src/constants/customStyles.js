@@ -31,5 +31,6 @@ export const customStyles = {
     border: '1px solid var(--inputs)',
     color: 'var(--gray)',
     overflow: 'hidden',
+    zIndex: 15,
   }),
 };
