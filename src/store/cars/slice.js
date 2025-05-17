@@ -29,13 +29,23 @@ const carsSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
+    resetCars(state) {
+      state.items = [];
+      state.page = 1;
+    },
   },
   extraReducers: builder => {
     builder
       .addCase(getCars.pending, handlePending)
       .addCase(getCars.fulfilled, (state, action) => {
-        state.items = action.payload.cars;
-        state.totalPages = action.payload.totalPages;
+        const { cars, totalPages, page } = action.payload;
+
+        if (page === 1) {
+          state.items = cars;
+        } else {
+          state.items = [...state.items, ...cars];
+        }
+        state.totalPages = totalPages;
         state.isLoading = false;
         state.error = null;
       })
@@ -57,5 +67,5 @@ const carsSlice = createSlice({
   },
 });
 
-export const { setPage, addFavorite, deleteFavorite } = carsSlice.actions;
+export const { setPage, resetCars } = carsSlice.actions;
 export default carsSlice.reducer;

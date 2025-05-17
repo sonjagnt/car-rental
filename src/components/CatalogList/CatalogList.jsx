@@ -64,23 +64,6 @@ export default function CatalogList() {
     );
   };
 
-  const handlePrev = () => {
-    if (currentPage > 1) {
-      const prevPage = currentPage - 1;
-
-      dispatch(setPage(prevPage));
-      dispatch(
-        getCars({
-          page: prevPage,
-          brand: brand || undefined,
-          rentalPrice: rentalPrice || undefined,
-          minMileage: minMileage ?? undefined,
-          maxMileage: maxMileage ?? undefined,
-        })
-      );
-    }
-  };
-
   return (
     <section>
       <FilterBar />
@@ -119,11 +102,6 @@ export default function CatalogList() {
         </ul>
         {allCars.length > 0 && totalPages > 1 && (
           <div className={s.btnWrapper}>
-            {currentPage > 1 && (
-              <button onClick={handlePrev} className={s.navBtn}>
-                Previous page
-              </button>
-            )}
             {currentPage < totalPages && (
               <button onClick={handleNext} className={s.navBtn}>
                 Load More

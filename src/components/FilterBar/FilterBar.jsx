@@ -19,6 +19,7 @@ import { getBrands } from '../../store/cars/operations';
 import s from './FilterBar.module.css';
 import { customStyles } from '../../constants/customStyles';
 import Container from '../../ui/Container/Container';
+import { resetCars } from '../../store/cars/slice';
 
 export default function FilterBar() {
   const dispatch = useDispatch();
@@ -60,6 +61,8 @@ export default function FilterBar() {
     dispatch(changePriceFilter(rentalPrice));
     dispatch(changeMinMileageFilter(mileage[0]));
     dispatch(changeMaxMileageFilter(mileage[1]));
+
+    dispatch(resetCars());
 
     dispatch(
       getCars({
