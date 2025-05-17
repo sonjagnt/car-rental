@@ -41,3 +41,6 @@ npm run dev
 - Add "reset filters" button
 - Add "back to products" button, navigating from car details page back to filtered catalog
 - Add "view favorites" button, which will render the list of favorite cars
+
+Creator:
+[@sonjagnt](https://github.com/sonjagnt)
