@@ -4,4 +4,3 @@ export const selectBrands = state => state.cars.brands;
 export const selectIsLoading = state => state.cars.isLoading;
 export const selectTotalPages = state => state.cars.totalPages;
 export const selectCarDetails = state => state.cars.carDetails;
-export const selectFavorites = state => state.cars.favorites;

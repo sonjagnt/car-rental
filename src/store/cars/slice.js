@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getBrands, getCarDetails, getCars } from './operations';
+import toast from 'react-hot-toast';
 
 const initialState = {
   items: [],
   brands: [],
   page: 1,
   totalPages: 0,
-  favorites: [],
   carDetails: null,
   isLoading: false,
   error: null,
@@ -19,6 +19,7 @@ const handlePending = state => {
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
+  toast.error('Something went wrong. Please, try again!');
 };
 
 const carsSlice = createSlice({
@@ -27,12 +28,6 @@ const carsSlice = createSlice({
   reducers: {
     setPage: (state, action) => {
       state.page = action.payload;
-    },
-    addFavorite: (state, action) => {
-      state.favorites.push(action.payload);
-    },
-    deleteFavorite: (state, action) => {
-      state.favorites = state.favorites.filter(fav => fav.id !== action.payload.id);
     },
   },
   extraReducers: builder => {

@@ -14,6 +14,7 @@ import { PiGear } from 'react-icons/pi';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import toast, { Toaster } from 'react-hot-toast';
+import { Loader } from '../../ui/Loader/Loader';
 
 export default function CarDetailsPage() {
   const {
@@ -40,13 +41,12 @@ export default function CarDetailsPage() {
   };
   return (
     <Container className={s.container}>
-      {isLoading && <p>Loading...</p>}
-
+      {isLoading && <Loader isLoading={isLoading} />}
       {!isLoading && car && (
         <>
           <div className={s.imgForm}>
             <div className={s.imgWrapper}>
-              <img src={car.img} />
+              <img src={car.img} alt={car.description} />
             </div>
             <div className={s.formWrapper}>
               <h3 className={s.formTitle}>Book your car now</h3>
@@ -103,7 +103,7 @@ export default function CarDetailsPage() {
                   {Array.from(car.address.split(' ')[3])}{' '}
                   {Array.from(car.address.split(' ')[4])}
                 </span>
-                <span>Mileage: {car.mileage} km</span>
+                <span>Mileage: {car.mileage.toLocaleString('ru-RU')} km</span>
               </p>
               <p className={s.price}>{car.rentalPrice} $</p>
               <p className={s.descr}>{car.description}</p>

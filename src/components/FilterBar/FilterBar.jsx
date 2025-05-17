@@ -5,7 +5,6 @@ import {
   changeMaxMileageFilter,
   changeMinMileageFilter,
   changePriceFilter,
-  resetFilters,
 } from '../../store/filters/slice';
 import { selectBrands } from '../../store/cars/selectors';
 import {
@@ -71,8 +70,6 @@ export default function FilterBar() {
         maxMileage: mileage[1],
       })
     );
-
-    dispatch(resetFilters());
   };
 
   return (
