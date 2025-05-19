@@ -70,12 +70,18 @@ export default function CarDetailsPage() {
                   render={({ field }) => (
                     <div>
                       <DatePicker
+                        selectsRange
+                        startDate={field.value?.[0]}
+                        endDate={field.value?.[1]}
+                        minDate={Date.now()}
                         wrapperClassName={s.datePickerWrapper}
                         className={s.datePicker}
                         placeholderText="Booking date"
                         calendarClassName="calendar"
-                        selected={field.value}
-                        onChange={field.onChange}
+                        onChange={dates => {
+                          const [start, end] = dates;
+                          field.onChange(end ? [start, end] : [start]);
+                        }}
                         dateFormat="dd-MM-yyyy"
                       />
                     </div>

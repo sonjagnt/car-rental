@@ -54,3 +54,97 @@ textarea {
   outline: none;
   border: none;
 }
+
+.react-datepicker.calendar {
+  font-family: var(--font-family);
+  border: 1px solid var(--button);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--white);
+  color: var(--main);
+
+  & .react-datepicker__current-month {
+    color: var(--main);
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  & .react-datepicker__day-name {
+    color: var(--main);
+    font-weight: 500;
+  }
+
+  & .react-datepicker__day {
+    color: var(--main);
+    margin: 2px;
+    transition: background-color 200ms ease, border-radius 200ms ease, transform 50ms ease;
+
+    &:not([aria-disabled='true']):hover {
+      border-radius: 50%;
+      color: var(--white);
+      background-color: var(--button-hover);
+    }
+
+    &:not([aria-disabled='true']):active {
+      transform: translateY(2px);
+    }
+  }
+
+  & .react-datepicker__day--today {
+    color: var(--white);
+    background-color: var(--gray-light);
+    border-radius: 50%;
+  }
+
+  & .react-datepicker__day--selected {
+    background-color: var(--button);
+    color: var(--white);
+    border-radius: 50%;
+  }
+
+  & .react-datepicker__header {
+    background: var(--white);
+    border-bottom: 1px solid var(--button);
+  }
+  & .react-datepicker__day--in-range {
+    color: var(--white);
+    font-weight: bold;
+    background-color: var(--button);
+    border-radius: 50%;
+  }
+  & .react-datepicker__day--in-range:hover {
+    background-color: var(--gray-light);
+    border-radius: 50%;
+  }
+  &
+    .react-datepicker__day--in-selecting-range:not(
+      .react-datepicker__day--in-range,
+      .react-datepicker__month-text--in-range,
+      .react-datepicker__quarter-text--in-range,
+      .react-datepicker__year-text--in-range
+    ) {
+    background-color: var(--button-hover);
+    color: var(--white);
+    font-weight: bold;
+    border-radius: 50%;
+  }
+  & .react-datepicker__day--disabled {
+    color: var(--gray);
+  }
+  & .react-datepicker__navigation-icon::before {
+    border-color: var(--button);
+    border-width: 2px 2px 0 0;
+  }
+  & .react-datepicker__day--keyboard-selected {
+    border-radius: 50%;
+    background-color: var(--gray-light);
+  }
+}
+
+.react-datepicker__tab-loop
+  .react-datepicker-popper[data-placement^='bottom']
+  .react-datepicker__triangle {
+  fill: var(--white);
+  color: var(--white);
+  stroke: var(--button);
+}

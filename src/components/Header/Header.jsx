@@ -11,10 +11,13 @@ export default function Header() {
           <Logo />
         </Link>
         <nav className={s.navigation}>
-          <NavLink to="/" className={s.navLink}>
+          <NavLink to="/" className={({ isActive }) => (isActive ? s.active : s.navLink)}>
             Home
           </NavLink>
-          <NavLink to="/catalog" className={s.navLink}>
+          <NavLink
+            to="/catalog"
+            className={({ isActive }) => (isActive ? s.active : s.navLink)}
+          >
             Catalog
           </NavLink>
         </nav>
