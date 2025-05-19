@@ -17,7 +17,7 @@ import { getCars } from '../../store/cars/operations';
 import { useEffect, useMemo, useState } from 'react';
 import { getBrands } from '../../store/cars/operations';
 import s from './FilterBar.module.css';
-import { customStyles } from '../../constants/customStyles';
+import { customStyles, theme } from '../../constants/customStyles';
 import Container from '../../ui/Container/Container';
 import { resetCars } from '../../store/cars/slice';
 
@@ -81,6 +81,7 @@ export default function FilterBar() {
         <label className={s.label}>
           <span className={s.labelText}>Car brand</span>
           <Select
+            theme={theme}
             styles={customStyles}
             options={brandOptions}
             value={brandOptions.find(option => option.value === brand)}
@@ -91,6 +92,7 @@ export default function FilterBar() {
         <label className={s.label}>
           <span className={s.labelText}>Price/ 1 hour</span>
           <Select
+            theme={theme}
             styles={customStyles}
             options={priceOptions}
             value={priceOptions.find(option => option.value === rentalPrice)}

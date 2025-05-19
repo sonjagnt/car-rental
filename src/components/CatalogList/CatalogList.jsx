@@ -7,7 +7,7 @@ import {
 } from '../../store/cars/selectors';
 import { useEffect } from 'react';
 import { getCars } from '../../store/cars/operations';
-import { setPage } from '../../store/cars/slice';
+import { resetCars, setPage } from '../../store/cars/slice';
 import { Link } from 'react-router-dom';
 import FilterBar from '../FilterBar/FilterBar';
 import s from './CatalogList.module.css';
@@ -38,6 +38,7 @@ export default function CatalogList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(resetCars());
     dispatch(getCars({ page: 1 }));
   }, [dispatch]);
 

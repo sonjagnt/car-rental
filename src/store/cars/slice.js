@@ -43,7 +43,9 @@ const carsSlice = createSlice({
         if (page === 1) {
           state.items = cars;
         } else {
-          state.items = [...state.items, ...cars];
+          const existingIds = new Set(state.items.map(car => car.id));
+          const uniqueNewCars = cars.filter(car => !existingIds.has(car.id));
+          state.items = [...state.items, ...uniqueNewCars];
         }
         state.totalPages = totalPages;
         state.isLoading = false;
