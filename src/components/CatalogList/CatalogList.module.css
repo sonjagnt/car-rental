@@ -58,6 +58,8 @@
 
 .carName {
   max-width: 240px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .accent {
@@ -67,10 +69,28 @@
 .additionalInfo {
   font-weight: 400;
   font-size: 12px;
-  line-height: 1.33;
+  line-height: 1.8;
   color: var(--gray);
   text-align: left;
   margin-bottom: 32px;
+}
+
+.additionalInfo span {
+  position: relative;
+  margin-right: 12px;
+}
+
+.additionalInfo span::after {
+  right: -7px;
+  position: absolute;
+  content: '';
+  width: 1px;
+  height: 16px;
+  background-color: var(--gray-light);
+}
+
+.additionalInfo span:last-of-type::after {
+  display: none;
 }
 
 .btn {

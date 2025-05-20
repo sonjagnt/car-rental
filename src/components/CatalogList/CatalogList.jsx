@@ -84,16 +84,20 @@ export default function CatalogList() {
                 <img src={car.img} alt={car.description} />
               </div>
               <div className={s.mainInfo}>
-                <p className={s.carName}>
+                <h4 className={s.carName}>
                   {car.brand} <span className={s.accent}>{car.model}</span>, {car.year}
-                </p>
+                </h4>
                 <p>$ {car.rentalPrice}</p>
               </div>
               <div>
-                <p className={s.additionalInfo}>
-                  {Array.from(car.address.split(' ')[3])} | {car.rentalCompany} |<br />
-                  {car.type} | {car.mileage.toLocaleString('ru-RU')} km
-                </p>
+                <div className={s.additionalInfo}>
+                  <span>{car.address.split(',')[1]}</span>
+                  <span>{car.address.split(',')[2]}</span>
+                  <span>{car.rentalCompany}</span>
+                  <br />
+                  <span>{car.type}</span>
+                  <span>{car.mileage.toLocaleString('ru-RU')} km</span>
+                </div>
               </div>
               <Link to={`${car.id}`} className={s.btn}>
                 Read more
