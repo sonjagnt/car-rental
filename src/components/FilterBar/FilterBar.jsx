@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import {
   changeBrandFilter,
   changeMaxMileageFilter,
@@ -46,12 +46,12 @@ export default function FilterBar() {
 
   const priceOptions = [
     { value: '', label: 'Choose a price' },
-    { value: '30', label: '$30' },
-    { value: '40', label: '$40' },
-    { value: '50', label: '$50' },
-    { value: '60', label: '$60' },
-    { value: '70', label: '$70' },
-    { value: '80', label: '$80' },
+    { value: '30', label: '30' },
+    { value: '40', label: '40' },
+    { value: '50', label: '50' },
+    { value: '60', label: '60' },
+    { value: '70', label: '70' },
+    { value: '80', label: '80' },
   ];
 
   const handleSubmit = e => {
@@ -73,6 +73,14 @@ export default function FilterBar() {
         maxMileage: mileage[1],
       })
     );
+  };
+
+  const CustomSingleValue = props => {
+    const value = props.data.value;
+    if (value === '') {
+      return <components.Placeholder {...props} />;
+    }
+    return <components.SingleValue {...props}>To {value}$</components.SingleValue>;
   };
 
   return (
@@ -98,26 +106,33 @@ export default function FilterBar() {
             value={priceOptions.find(option => option.value === rentalPrice)}
             onChange={option => dispatch(changePriceFilter(option?.value || ''))}
             placeholder="Choose a price"
+            components={{ SingleValue: CustomSingleValue }}
           />
         </label>
         <div>
           <label className={s.label}>
             <span className={s.labelText}>Car mileage | km</span>
             <div className={s.mileageInputs}>
-              <input
-                className={s.mileageInput}
-                type="number"
-                value={mileage[0]}
-                onChange={e => setMileage([+e.target.value, mileage[1]])}
-                placeholder="From"
-              />
-              <input
-                className={s.mileageInput}
-                type="number"
-                value={mileage[1]}
-                onChange={e => setMileage([mileage[0], +e.target.value])}
-                placeholder="To"
-              />
+              <span className={s.textBox}>
+                From
+                <input
+                  className={s.mileageInput}
+                  type="text"
+                  inputMode="numeric"
+                  value={mileage[0].toLocaleString('en-US')}
+                  onChange={e => setMileage([+e.target.value, mileage[1]])}
+                />
+              </span>
+              <span className={s.textBox}>
+                To
+                <input
+                  className={s.mileageInput}
+                  type="text"
+                  inputMode="numeric"
+                  value={mileage[1].toLocaleString('en-US')}
+                  onChange={e => setMileage([mileage[0], +e.target.value])}
+                />
+              </span>
             </div>
           </label>
         </div>

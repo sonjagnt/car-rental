@@ -34,7 +34,6 @@ export const customStyles = {
     overflow: 'hidden',
     zIndex: 15,
     padding: '14px 8px',
-    maxHeight: '272px',
   }),
   option: (base, { isSelected }) => ({
     ...base,
@@ -44,6 +43,7 @@ export const customStyles = {
   menuList: base => ({
     ...base,
     fontWeight: 500,
+    maxHeight: '272px',
     '::-webkit-scrollbar': {
       width: '8px',
       height: '128px',
