@@ -154,7 +154,7 @@
   line-height: 1.25;
 }
 
-.date .error {
+.error {
   font-size: 14px;
   align-self: flex-start;
   color: #ff3838;
