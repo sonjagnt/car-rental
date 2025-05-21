@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Select, { components } from 'react-select';
+import Select, { components as RSComponents } from 'react-select';
+
 import {
   changeBrandFilter,
   changeMaxMileageFilter,
@@ -78,9 +79,9 @@ export default function FilterBar() {
   const CustomSingleValue = props => {
     const value = props.data.value;
     if (value === '') {
-      return <components.Placeholder {...props} />;
+      return <RSComponents.Placeholder {...props} />;
     }
-    return <components.SingleValue {...props}>To {value}$</components.SingleValue>;
+    return <RSComponents.SingleValue {...props}>To {value}$</RSComponents.SingleValue>;
   };
 
   return (

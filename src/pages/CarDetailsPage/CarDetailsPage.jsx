@@ -60,7 +60,13 @@ export default function CarDetailsPage() {
                 />
                 {errors.name && <span className={s.error}>Name is required</span>}
                 <input
-                  {...register('email', { required: true, maxLength: 20 })}
+                  {...register('email', {
+                    required: true,
+                    maxLength: 20,
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    },
+                  })}
                   placeholder="Email*"
                 />
                 {errors.email && <span className={s.error}>Email is required</span>}
