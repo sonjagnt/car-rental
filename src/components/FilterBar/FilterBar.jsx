@@ -121,7 +121,11 @@ export default function FilterBar() {
                   type="text"
                   inputMode="numeric"
                   value={mileage[0].toLocaleString('en-US')}
-                  onChange={e => setMileage([+e.target.value, mileage[1]])}
+                  onChange={e => {
+                    const raw = e.target.value.replace(/,/g, '');
+                    const parsed = Number(raw);
+                    setMileage([parsed, mileage[1]]);
+                  }}
                 />
               </span>
               <span className={s.textBox}>
@@ -131,7 +135,11 @@ export default function FilterBar() {
                   type="text"
                   inputMode="numeric"
                   value={mileage[1].toLocaleString('en-US')}
-                  onChange={e => setMileage([mileage[0], +e.target.value])}
+                  onChange={e => {
+                    const raw = e.target.value.replace(/,/g, '');
+                    const parsed = Number(raw);
+                    setMileage([mileage[0], parsed]);
+                  }}
                 />
               </span>
             </div>
