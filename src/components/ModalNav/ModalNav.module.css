@@ -1,0 +1,38 @@
+.navigation {
+  position: absolute;
+  z-index: 99;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+  gap: 24px;
+  background-color: var(--badges);
+  animation-name: slide;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.navLink {
+  font-weight: 500;
+  color: var(--main);
+}
+
+.navLink:hover {
+  color: var(--button);
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(100%);
+    background-color: transparent;
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    background-color: var(--white);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,5 @@
+.btn {
+  position: absolute;
+  z-index: 999;
+  right: 24px;
+}

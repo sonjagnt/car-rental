@@ -155,7 +155,22 @@
 }
 
 .error {
+  margin: -12px 0px 4px 0px;
   font-size: 14px;
   align-self: flex-start;
   color: #ff3838;
+  animation-name: slide;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(-80%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
 }

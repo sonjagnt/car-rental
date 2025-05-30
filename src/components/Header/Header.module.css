@@ -6,16 +6,14 @@
 }
 
 .header {
-  height: 68px;
+  height: auto;
   background-color: var(--badges);
-  padding: 24px 120px;
+  padding: 24px;
   width: 100%;
 }
 
 .navigation {
-  color: var(--main);
-  display: flex;
-  gap: 32px;
+  display: none;
 }
 
 .navLink {
@@ -30,4 +28,16 @@
 
 .active {
   color: var(--button-hover);
+}
+
+@media (min-width: 768px) {
+  .header {
+    height: 68px;
+    padding: 24px 80px;
+  }
+  .navigation {
+    color: var(--main);
+    display: flex;
+    gap: 32px;
+  }
 }

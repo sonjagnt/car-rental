@@ -57,6 +57,7 @@ export default function CarDetailsPage() {
                 <input
                   {...register('name', { required: true, maxLength: 20 })}
                   placeholder="Name*"
+                  className={s.input}
                 />
                 {errors.name && <span className={s.error}>Name is required</span>}
                 <input
