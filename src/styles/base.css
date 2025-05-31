@@ -148,3 +148,13 @@ textarea {
   color: var(--white);
   stroke: var(--button);
 }
+
+.custom-select__control {
+  min-width: 260px;
+}
+
+@media (min-width: 768px) {
+  .custom-select__control {
+    min-width: 204px;
+  }
+}

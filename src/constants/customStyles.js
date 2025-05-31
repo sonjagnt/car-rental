@@ -3,7 +3,6 @@ export const customStyles = {
     ...baseStyles,
     padding: '6px 8px',
     borderRadius: '12px',
-    minWidth: 204,
     border: 'none',
     borderColor: 'transparent',
     boxShadow: 'none',

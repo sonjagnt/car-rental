@@ -1,16 +1,17 @@
 .wrapper {
-  margin-top: 436px;
+  margin-top: 360px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0px 20px 24px 20px;
 }
 
 .title {
   font-family: var(--font-family);
   color: var(--white);
   font-weight: 700;
-  font-size: 60px;
+  font-size: 40px;
   line-height: 1.2;
   text-align: center;
 }
@@ -19,7 +20,7 @@
   margin-bottom: 40px;
   font-family: var(--font-family);
   font-weight: 600;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 133%;
   text-align: center;
   color: var(--white);
@@ -29,15 +30,31 @@
   background-color: var(--button);
   color: var(--white);
   border-radius: 12px;
-  padding: 12px 99px;
+  padding: 12px 90px;
   min-width: 276px;
   height: auto;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.25;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .btn:hover {
   background-color: var(--button-hover);
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    margin-top: 436px;
+  }
+  .title {
+    font-size: 60px;
+  }
+  .subtitle {
+    font-size: 24px;
+  }
+  .btn {
+    padding: 12px 99px;
+    font-size: 16px;
+  }
 }

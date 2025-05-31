@@ -1,7 +1,8 @@
 .form {
-  margin-top: 84px;
-  margin-bottom: 56px;
   display: flex;
+  flex-direction: column;
+  margin-top: 64px;
+  margin-bottom: 56px;
   justify-content: center;
   align-items: center;
   gap: 16px;
@@ -24,7 +25,7 @@
 
 .mileageInputs {
   display: flex;
-  max-width: 320px;
+  max-width: 260px;
   overflow: hidden;
   border-radius: 12px;
   height: 48px;
@@ -48,12 +49,12 @@
 .textBox {
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--main);
   line-height: 2;
   background-color: var(--inputs);
-  padding-left: 24px;
-  max-width: 160px;
+  padding-left: 18px;
+  max-width: 130px;
 }
 
 .btn {
@@ -66,9 +67,30 @@
   font-weight: 600;
   font-size: 16px;
   transition: background-color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  align-self: last baseline;
+  align-self: center;
 }
 
 .btn:hover {
   background-color: var(--button-hover);
+}
+
+@media (min-width: 768px) {
+  .form {
+    flex-direction: row;
+    margin-top: 84px;
+  }
+  .mileageInputs {
+    max-width: 320px;
+  }
+  .textBox {
+    max-width: 160px;
+    font-size: 16px;
+    padding-left: 24px;
+  }
+  .btn {
+    align-self: last baseline;
+  }
+  .custom-select__control {
+    min-width: 204px;
+  }
 }

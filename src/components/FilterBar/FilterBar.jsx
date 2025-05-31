@@ -90,6 +90,7 @@ export default function FilterBar() {
         <label className={s.label}>
           <span className={s.labelText}>Car brand</span>
           <Select
+            classNamePrefix="custom-select"
             theme={theme}
             styles={customStyles}
             options={brandOptions}
@@ -101,6 +102,7 @@ export default function FilterBar() {
         <label className={s.label}>
           <span className={s.labelText}>Price/ 1 hour</span>
           <Select
+            classNamePrefix="custom-select"
             theme={theme}
             styles={customStyles}
             options={priceOptions}
