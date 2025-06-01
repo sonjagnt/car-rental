@@ -155,6 +155,12 @@ textarea {
 
 @media (min-width: 768px) {
   .custom-select__control {
+    min-width: 180px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .custom-select__control {
     min-width: 204px;
   }
 }

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 64px;
-  margin-bottom: 56px;
+  margin-bottom: 32px;
   justify-content: center;
   align-items: center;
   gap: 16px;
@@ -78,6 +78,29 @@
   .form {
     flex-direction: row;
     margin-top: 84px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    row-gap: 32px;
+  }
+  .mileageInputs {
+    max-width: 280px;
+  }
+  .textBox {
+    max-width: 140px;
+    font-size: 16px;
+    padding-left: 24px;
+  }
+  .btn {
+    align-self: center;
+  }
+}
+
+@media (min-width: 1280px) {
+  .form {
+    flex-direction: row;
+    margin-top: 84px;
+    margin-bottom: 56px;
+    flex-wrap: nowrap;
   }
   .mileageInputs {
     max-width: 320px;
@@ -86,11 +109,5 @@
     max-width: 160px;
     font-size: 16px;
     padding-left: 24px;
-  }
-  .btn {
-    align-self: last baseline;
-  }
-  .custom-select__control {
-    min-width: 204px;
   }
 }

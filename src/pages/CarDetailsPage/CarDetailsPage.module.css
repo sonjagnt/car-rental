@@ -1,15 +1,17 @@
 .container {
   font-family: var(--font-family);
-  padding-top: 84px;
+  padding-top: 64px;
   padding-bottom: 104px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 72px;
+  flex-direction: column;
+  gap: 32px;
+  padding-inline: 20px;
 }
 
 .imgWrapper {
-  width: 640px;
+  width: 280px;
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 40px;
@@ -64,7 +66,7 @@
 .lists {
   display: flex;
   flex-direction: column;
-  gap: 110px;
+  gap: 60px;
 }
 
 .listTitle {
@@ -95,7 +97,7 @@
   border: 1px solid var(--gray-light);
   border-radius: 10px;
   padding: 32px;
-  width: 640px;
+  width: 280px;
   height: auto;
 }
 
@@ -133,7 +135,7 @@
   color: var(--gray);
 }
 .datePickerWrapper {
-  min-width: 576px;
+  min-width: auto;
 }
 
 .form textarea {
@@ -172,5 +174,42 @@
   to {
     transform: translateY(0%);
     opacity: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-top: 84px;
+    flex-direction: row;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  .imgWrapper {
+    width: 440px;
+  }
+  .formWrapper {
+    width: 440px;
+  }
+  .datePickerWrapper {
+    min-width: 375px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    flex-direction: row;
+    gap: 72px;
+  }
+  .imgWrapper {
+    width: 640px;
+  }
+  .formWrapper {
+    width: 640px;
+  }
+  .lists {
+    gap: 110px;
+  }
+  .datePickerWrapper {
+    min-width: 576px;
   }
 }
